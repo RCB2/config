@@ -1,4 +1,14 @@
-server:
-  port: 4001
-  servlet:
-    context-path: /
+spring:
+  profiles:
+    active:
+    - dev
+---
+spring:
+  #读取Application中的dev端口
+  profiles: dev
+prot: 111
+---
+spring:
+  #读取Application中的test
+  profiles: test
+prot: 222
