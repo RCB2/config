@@ -1,0 +1,4 @@
+server:
+  pot: 111
+  servlet:
+    context-path: /
