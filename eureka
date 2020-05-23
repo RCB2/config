@@ -1,0 +1,42 @@
+spring:
+  profiles:
+    active:
+    - dev
+---
+server:
+  prot: 2004
+  context-path: /
+  #读取Application中的dev端口
+spring:
+  profiles: dev
+eureka:
+  instance:
+#    hostname: localhost #eureka注册中心实例名称 单机
+    hostname: eureka2004.biao.cn # 集群
+  client:
+    register-with-eureka: false     #false 由于该应用为注册中心，所以设置为false,代表不向注册中心注册自己。
+    fetch-registry: false     #false 由于注册中心的职责就是维护服务实例，它并不需要去检索服务，所以也设置为false，心跳包
+    serviceUrl:
+      defaultZone: http://eureka2005.biao.cn:2005/eureka/ # 集群
+       #单机
+      #defaultZone: http://localhost:2001/eureka/
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/      #设置与Eureka注册中心交互的地址，查询服务和注册服务用到       #设置与Eureka注册中心交互的地址，查询服务和注册服务用到
+---
+server:
+  prot: 2005
+  context-path: /
+  #读取Application中的dev端口
+spring:
+  #读取Application中的test
+  profiles: test
+eureka:
+  instance:
+    hostname: eureka2005.biao.cn # 集群
+  client:
+    register-with-eureka: false     #false 由于该应用为注册中心，所以设置为false,代表不向注册中心注册自己。
+    fetch-registry: false     #false 由于注册中心的职责就是维护服务实例，它并不需要去检索服务，所以也设置为false，心跳包
+    serviceUrl:
+      defaultZone: http://eureka2004.biao.cn:2004/eureka/ # 集群
+       #单机
+      #defaultZone: http://localhost:2001/eureka/
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/      #设置与Eureka注册中心交互的地址，查询服务和注册服务用到       #设置与Eureka注册中心交互的地址，查询服务和注册服务用到
