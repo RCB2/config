@@ -1,0 +1,51 @@
+server:
+  port: 1007
+  servlet:
+    context-path: /
+
+spring:
+  #用户访问服务时调用，如下面eureka未配置: appname: microservice-user #客户端服务名
+  #服务名称以它为准，最好两个相同
+  application:
+    name: microservice-user
+  #数据源配置
+  datasource:
+    #type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/myspringboot?characterEncoding=utf8
+      username: root
+      password: 123456
+      db-type: com.alibaba.druid.pool.DruidDataSource
+
+# MyBatis
+mybatis:
+  #空间命名
+  type-aliases-package: com.my.slud.entity
+  #映射扫描Mapper.xml文件
+  mapper-locations: classpath:mapper/*Mapper.xml
+  #开启驼峰名
+  configuration:
+    map-underscore-to-camel-case: true
+
+#eureka服务端，提供者，1008
+eureka:
+  instance:
+    hostname: localhost #实例名称， 单机
+    appname: microservice-user #客户端服务名
+    instance-id: microservice-user-hystrix-feign-config:1008 #客户端实例名称：该服务名称
+    prefer-ip-address: true #显示IP
+  client:
+    service-url:
+      #集群 把服务注册到这些路径
+      defaultZone: http://eureka2004.biao.cn:2004/eureka/,http://eureka2005.biao.cn:2005/eureka/ # 集群
+      #单机 把服务注册到该eureka中心
+      #defaultZone: http://localhost:2001/eureka/
+
+#在pom文件添加build $,解析这里的$符号的内容
+info:
+  groupId: $project.groupId$
+  artifactId: $project.artifactId$
+  version: $project.version$
+  负责人: 张三
+  联系电话: 1002
